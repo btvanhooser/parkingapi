@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <title>Parking Lot API</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <style>
+            .bold{
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div class='container'>
+            <div class='jumbotron text-center'>
+                <h1>Parking Lot API</h1>
+            </div>
+            <div class='well'>
+                <h2 class='customToggle'>GetLots</h2>
+                <div class='well hidden' id='GetLots'>
+                    <h4>https://mysterious-atoll-40779.herokuapp.com/getLots [GET request]</h4>
+                    <p>Use this call to get a JSON object in return containing a JSON object as a value to the "results" key containing each lot tied to their IDs.</p>
+                </div>
+                <br><br>
+                <h2 class='customToggle'>GetLot</h2>
+                <div class='well hidden' id='GetLot'>
+                    <h4>https://mysterious-atoll-40779.herokuapp.com/getLot/{int: id} [GET request]</h4>
+                    <p>Use this request with any number 1 through 19 as the value of id. Each of these IDs are tied to an individual parking lot. Returned value is a JSON object with the key 'results' with its value being to a JSON object with the capacity info for the lot.</p>
+                </div>
+                <br><br>
+                <h2 class='customToggle'>GetLotCapacity</h2>
+                <div class='well hidden' id='GetLotCapacity'>
+                    <h4>https://mysterious-atoll-40779.herokuapp.com/getLotCapacity/{int: id} [GET request]</h4>
+                    <p>Use this request with any number 1 through 19 as the value of id. Each of these IDs are tied to an individual parking lot. Returned value is a JSON object with the key 'results' with its value being a string of either 'low', 'medium', or 'high', based on that specific lot's highest capacity value in the database.</p>
+                </div>
+                <br><br>
+                <h2 class='customToggle'>GetLotsByCapacity</h2>
+                <div class='well hidden' id='GetLotsByCapacity'>
+                    <h4>https://mysterious-atoll-40779.herokuapp.com/getLotsByCapacity [GET request]</h4>
+                    <p>Use this request to get a JSON object back with the key 'results' and a JSON object as the value with 3 keys: 'low', 'medium', 'high'. Each key contains a list of JSON objects with the keys of 'id' and 'name' that each contain a string with the corresponding information.</p>
+                </div>
+                <br><br>
+                <h2 class='customToggle'>UpdateLot</h2>
+                <div class='well hidden' id='UpdateLot'>
+                    <h4>https://mysterious-atoll-40779.herokuapp.com/updateLot [PUT request]</h4>
+                    <p>This request requires a payload containing a JSON object with the following keys and values: 'name': '{name of the lot}', 'capacityLevel': '{low, medium, or high}'. Returns a JSON object with the key 'results' and a value of either 'Lot successfully updated' if the lot exists, or 'No lot with that name exists' if a bad request was made. This request is intended to be a way for the user to update lot data in the database.</p>
+                </div>
+                <br><br>
+                <h2 class='customToggle'>RefreshTable</h2>
+                <div class='well hidden' id='RefreshTable'>
+                    <h4>https://mysterious-atoll-40779.herokuapp.com/refreshTable [GET request]</h4>
+                    <p>This request ensures that the database can be refreshed to account for new days. A seperate table is created that contains this API's last use (by date) and determines if today's date matches or not. If not, the database is rebuilt with every lot's data zeroed out. Otherwise, this request will not run the refresh process. A JSON object is returned with the key 'results' and the value of either 'Table successfully refreshed' if the current date is different, or 'Table is already refreshed' if this table is already refreshed for that day.</p>
+                </div>
+            </div>
+        </div>
+        <script>
+            $('.customToggle').click(function(){
+                var dummy = $(this).text();
+                $("#" + dummy).toggleClass('hidden');
+            });
+            $('.customToggle').hover(function(){
+                $(this).addClass('bold');
+            }, function(){
+                $(this).removeClass('bold');
+            });
+        </script>
+    </body>
+</html>

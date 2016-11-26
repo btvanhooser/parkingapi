@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 import os
 import sqlite3
 import dbSetup
@@ -42,6 +42,10 @@ def getSpecificLot(id):
     return "No lot with that ID found"
     
 app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('documentation.html')
 
 @app.route('/getLot/<int:id>')
 def get_lot(id):
