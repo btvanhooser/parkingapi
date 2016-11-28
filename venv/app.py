@@ -19,22 +19,28 @@ def getSortedLotsFromDB():
     connection = sqlite3.connect("parking_lot.db")
     cursor = connection.cursor()
     select_query = "SELECT id, lot_name, empty, full, mostlyEmpty, mostlyFull FROM parking_lot_list"
-    emptyList = []
-    fullList = []
-    mostlyEmptyList = []
-    mostlyFullList = []
+    #emptyList = []
+    #fullList = []
+    #mostlyEmptyList = []
+    #mostlyFullList = []
+    resultList = []
     for row in cursor.execute(select_query):
-        tempD = {"id": row[0], "name": row[1]}
+        #tempD = {"id": row[0], "name": row[1]}
         if row[2] > row[3] and row[2] > row[4] and row[2] > row[5]:
-            emptyList.append(tempD)
+            #emptyList.append(tempD)
+            tempD = {"name": row[1], "capicityLevel": "empty"}    
         elif row[3] > row[2] and row[3] > row[4] and row[3] > row[5]:
-            fullList.append(tempD)
+            #fullList.append(tempD)
+            tempD = {"name": row[1], "capicityLevel": "full"}
         elif row[4] > row[2] and row[4] > row[3] and row[4] > row[5]:
-            mostlyEmptyList.append(tempD)
+            #mostlyEmptyList.append(tempD)
+            tempD = {"name": row[1], "capacityLevel": "mostlyEmpty"}
         else:
-            mostlyFullList.append(tempD)
+            #mostlyFullList.append(tempD)
+            tempD = {"name": row[1], "capacityLevel": "mostlyFull"}
+        resultList.append(tempD)
     connection.close()
-    return {"empty": emptyList, "full": fullList, "mostlyEmpty": mostlyEmptyList, "mostlyFull": mostlyFullList}
+    return resultList
 
 def getSpecificLot(id):
     connection = sqlite3.connect("parking_lot.db")
