@@ -18,27 +18,30 @@ def getListOfLots():
 def getSortedLotsFromDB():
     connection = sqlite3.connect("parking_lot.db")
     cursor = connection.cursor()
-    select_query = "SELECT id, lot_name, high, medium, low FROM parking_lot_list"
-    lowList = []
-    mediumList = []
-    highList = []
+    select_query = "SELECT id, lot_name, empty, full, mostlyEmpty, mostlyFull FROM parking_lot_list"
+    emptyList = []
+    fullList = []
+    mostlyEmptyList = []
+    mostlyFullList = []
     for row in cursor.execute(select_query):
         tempD = {"id": row[0], "name": row[1]}
-        if row[2] > row[3] and row[2] > row[4]:
-            highList.append(tempD)
-        elif row[4] > row[2] and row[4] > row[3]:
-            lowList.append(tempD)
+        if row[2] > row[3] and row[2] > row[4] and row[2] > row[5]:
+            emptyList.append(tempD)
+        elif row[3] > row[2] and row[3] > row[4] and row[3] > row[5]:
+            fullList.append(tempD)
+        elif row[4] > row[2] and row[4] > row[3] and row[4] > row[5]:
+            mostlyEmptyList.append(tempD)
         else:
-            mediumList.append(tempD)
+            mostlyFullList.append(tempD)
     connection.close()
-    return {"low":lowList, "medium":mediumList, "high":highList}
+    return {"empty": emptyList, "full": fullList, "mostlyEmpty": mostlyEmptyList, "mostlyFull": mostlyFullList}
 
 def getSpecificLot(id):
     connection = sqlite3.connect("parking_lot.db")
     cursor = connection.cursor()
     select_query = "SELECT * FROM parking_lot_list WHERE id = {}".format(id)
     for row in cursor.execute(select_query):
-        return {"id": row[0], "name": row[1], "high": row[2], "medium": row[3], "low": row[4]}
+        return {"id": row[0], "name": row[1], "empty": row[2], "full": row[3], "mostlyEmpty": row[4], "mostlyFull": row[5]}
     return "No lot with that ID found"
     
 app = Flask(__name__)
@@ -66,11 +69,13 @@ def get_lot_capacity(id):
     result = getSpecificLot(id)
     if result == "No lot with that ID found":
         return jsonify({"results": result}), 404
-    if result["high"] > result["medium"] and result["high"] > result["low"]:
-        return jsonify({"results": "high"})
-    elif result["low"] > result["medium"] and result["low"] > result["high"]:
-        return jsonify({"results": "low"})
-    return jsonify({"results": "medium"})
+    if result["empty"] > result["full"] and result["empty"] > result["mostlyEmpty"] and result["empty"] > result["mostlyFull"]:
+        return jsonify({"results": "empty"})
+    elif result["full"] > result["empty"] and result["full"] > result["mostlyEmpty"] and result["full"] > result["mostlyFull"]:
+        return jsonify({"results": "full"})
+    elif result["mostlyEmpty"] > result["empty"] and result["mostlyEmpty"] > result["full"] and result["mostlyEmpty"] > result["mostlyFull"]:
+        return jsonify({"results": "mostlyEmpty"})
+    return jsonify({"results": "mostlyFull"})
     
 @app.route('/getLotsByCapacity')
 def get_all_capacity():
