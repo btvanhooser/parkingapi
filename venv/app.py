@@ -28,10 +28,10 @@ def getSortedLotsFromDB():
         #tempD = {"id": row[0], "name": row[1]}
         if row[2] > row[3] and row[2] > row[4] and row[2] > row[5]:
             #emptyList.append(tempD)
-            tempD = {"name": row[1], "capicityLevel": "empty"}    
+            tempD = {"name": row[1], "capacityLevel": "empty"}    
         elif row[3] > row[2] and row[3] > row[4] and row[3] > row[5]:
             #fullList.append(tempD)
-            tempD = {"name": row[1], "capicityLevel": "full"}
+            tempD = {"name": row[1], "capacityLevel": "full"}
         elif row[4] > row[2] and row[4] > row[3] and row[4] > row[5]:
             #mostlyEmptyList.append(tempD)
             tempD = {"name": row[1], "capacityLevel": "mostlyEmpty"}
