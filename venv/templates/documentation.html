@@ -30,7 +30,7 @@
                 <h2 class='customToggle'>GetLotCapacity</h2>
                 <div class='well hidden' id='GetLotCapacity'>
                     <h4>https://mysterious-atoll-40779.herokuapp.com/getLotCapacity/{int: id} [GET request]</h4>
-                    <p>Use this request with any number 1 through 19 as the value of id. Each of these IDs are tied to an individual parking lot. Returned value is a JSON object with the key 'results' with its value being a string of either 'low', 'medium', or 'high', based on that specific lot's highest capacity value in the database.</p>
+                    <p>Use this request with any number 1 through 19 as the value of id. Each of these IDs are tied to an individual parking lot. Returned value is a JSON object with the key 'results' with its value being a string of either 'empty', 'mostlyEmpty', 'mostlyFull', or 'full', based on that specific lot's highest capacity value in the database.</p>
                 </div>
                 <br><br>
                 <h2 class='customToggle'>GetAllLotCapacities</h2>
@@ -42,7 +42,7 @@
                 <h2 class='customToggle'>UpdateLot</h2>
                 <div class='well hidden' id='UpdateLot'>
                     <h4>https://mysterious-atoll-40779.herokuapp.com/updateLot [PUT request]</h4>
-                    <p>This request requires a payload containing a JSON object with the following keys and values: 'name': '{name of the lot}', 'capacityLevel': '{low, medium, or high}'. Returns a JSON object with the key 'results' and a value of either 'Lot successfully updated' if the lot exists, or 'No lot with that name exists' if a bad request was made. This request is intended to be a way for the user to update lot data in the database.</p>
+                    <p>This request requires a payload containing a JSON object with the following keys and values: 'name': '{name of the lot}', 'capacityLevel': '{empty, mostlyEmpty, mostlyFull, or full}'. Returns a JSON object with the key 'results' and a value of either 'Lot successfully updated' if the lot exists, or 'No lot with that name exists' if a bad request was made. This request is intended to be a way for the user to update lot data in the database.</p>
                 </div>
                 <br><br>
                 <h2 class='customToggle'>RefreshTable</h2>
