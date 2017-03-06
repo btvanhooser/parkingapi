@@ -83,7 +83,7 @@ def get_lot_capacity(id):
         return jsonify({"results": "mostlyEmpty"})
     return jsonify({"results": "mostlyFull"})
     
-@app.route('/getLotsByCapacity')
+@app.route('/getAllLotCapacities')
 def get_all_capacity():
     tempD = getSortedLotsFromDB()
     result = {"results" : tempD}

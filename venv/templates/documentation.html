@@ -33,10 +33,10 @@
                     <p>Use this request with any number 1 through 19 as the value of id. Each of these IDs are tied to an individual parking lot. Returned value is a JSON object with the key 'results' with its value being a string of either 'low', 'medium', or 'high', based on that specific lot's highest capacity value in the database.</p>
                 </div>
                 <br><br>
-                <h2 class='customToggle'>GetLotsByCapacity</h2>
+                <h2 class='customToggle'>GetAllLotCapacities</h2>
                 <div class='well hidden' id='GetLotsByCapacity'>
-                    <h4>https://mysterious-atoll-40779.herokuapp.com/getLotsByCapacity [GET request]</h4>
-                    <p>Use this request to get a JSON object back with the key 'results' and a JSON object as the value with 3 keys: 'low', 'medium', 'high'. Each key contains a list of JSON objects with the keys of 'id' and 'name' that each contain a string with the corresponding information.</p>
+                    <h4>https://mysterious-atoll-40779.herokuapp.com/getAllLotsCapacities [GET request]</h4>
+                    <p>Use this request to get a JSON object back with the key 'results' and a JSON object with the name of each lot and their capactiy levels (either empty, mostlyEmpty, mostlyFull, or Full).</p>
                 </div>
                 <br><br>
                 <h2 class='customToggle'>UpdateLot</h2>
